@@ -1,0 +1,15 @@
+<h2>Resend confirmation instructions</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), method: :post) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.input :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Resend confirmation instructions" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>

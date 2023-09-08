@@ -1,0 +1,74 @@
+<div class="d-flex flex-column p-3 text-white bg-dark sidebar__content">
+  <%= link_to "🌈メモトーーク!", root_path, class: "fs-4 d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"%>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <%= link_to memos_path, class: "nav-link fw-bold sidebar__link" do %>
+        <i class="fa-solid fa-book-open"></i> メモ一覧
+      <% end %>
+    </li>
+    <li>
+      <%= link_to new_memo_path, class: "nav-link fw-bold sidebar__link" do %>
+        <i class="fa-solid fa-circle-plus"></i> メモ新規追加
+      <% end %>
+    </li>
+    <li>
+      <%= link_to questions_path, class: "nav-link fw-bold sidebar__link" do %>
+        <i class="fa-solid fa-file-circle-question"></i> 質問掲示板
+      <% end %>
+    </li>
+    <li>
+      <%= link_to mypost_questions_path, class: "nav-link fw-bold sidebar__link" do %>
+        <i class="fa-solid fa-person-circle-question"></i> 自分の質問
+      <% end %>
+    </li>
+    <li>
+      <%= link_to new_question_path, class: "nav-link fw-bold sidebar__link" do %>
+        <i class="fa-regular fa-comments"></i> 質問する
+      <% end %>
+    </li>
+    <hr>
+    <li class="nav-item fw-bold thread_index">
+      <i class="fa-solid fa-rainbow"></i> スレッド一覧
+    </li>
+    <br>
+    <div class="scroll">
+    <% rooms = Room.all %>
+    <% if rooms.present? %>
+      <% rooms.each do |room| %>
+        <li>
+          <%= link_to room.name, room_path(room), class: "nav-link fw-bold sidebar__link"%>
+        </li>
+      <% end %>
+    <% end %>
+    </div>
+  </ul>
+  <hr>
+  <div class="dropdown">
+    
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+
+      <% if current_user.image? %>
+        <%= image_tag current_user.image.url, size: '32x32', class: 'rounded-circle me-2' %>
+      <% else %>
+        <%= image_tag 'default.png', size: '32x32', class: 'rounded-circle me-2' %>
+      <% end %>
+      
+      <strong><%= current_user.name %></strong>
+    </a>
+    
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+      <li>
+        <%= link_to edit_user_registration_path, class:"dropdown-item" do%>
+          <i class="fa-regular fa-user"></i> プロフィール
+        <% end %>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <%= button_to destroy_user_session_path, method: :delete, class:"dropdown-item" do %>
+          <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
